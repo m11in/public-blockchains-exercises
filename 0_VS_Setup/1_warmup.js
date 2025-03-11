@@ -53,11 +53,11 @@
 
 // a. Hint: follow the pattern.
 variable1 = 1;
-variable2 = ;
-variable3 3;
+variable2 = 2;
+variable3 = 3;
 
 // b. Hint: This function needs a name after the word function.
-function () {
+function sayHello() {
   console.log("Hello!");
 }
 
@@ -70,10 +70,10 @@ function () {
 // Here we just learn a couple of useful tricks.
 
 // a. Comment out useless code with Ctrl-/ Ctrl-/ (Linux/Windows)
-// or Cmd-/ (Mac). Notice if you apply the command multiple times, it will
+// or Shift-Cmd-/ (Mac). Notice if you apply the command multiple times, it will
 // uncomment/comment/uncomment... it.
 
-uselessCode = 'I am useless';
+// uselessCode = 'I am useless';
 
 // b. Cool. What other shorcuts are available? Here is a shortcut to find
 // them all. Ctrl-Shift-P. Look around and remember how to get here,
@@ -81,14 +81,14 @@ uselessCode = 'I am useless';
 
 // c. It would great if we could have a clone of ourselves, or even better
 // multiple clones. It turns out that you can do it in VS Code! Highlight
-// the word "not". Then press Ctrl-D (or Ctrl-Alt-Up/Down Arrow) as many times
-// as needed to highlight all the next occurrences of the word "not". 
-// At every word "not" there is a new cursor, so you can write multiple rows
-// at once. Delete "not" and replace the exclamation mark with a sad face. 
+// the word "!:(". Then press Ctrl-D (or Ctrl-Alt-Up/Down Arrow) as many times
+// as needed to highlight all the next occurrences of the word "!:(". 
+// At every word "!:(" there is a new cursor, so you can write multiple rows
+// at once. Delete "!:(" and replace the exclamation mark with a sad face. 
 
-catchMeIfYouCan1 = "You did not catch me";
-catchMeIfYouCan2 = "You did not catch me";
-catchMeIfYouCan3 = "You did not catch me";
+catchMeIfYouCan1 = "You did !:( catch me";
+catchMeIfYouCan2 = "You did !:( catch me";
+catchMeIfYouCan3 = "You did !:( catch me";
 
 // d. Sometimes you want to move an entire line of code up or down. Of course
 // there is a shortcut for that: Alt-ArrowUp/Down.
