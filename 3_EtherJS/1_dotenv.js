@@ -39,18 +39,23 @@ console.log(pathToDotEnv);
 
 // Hint: use path.join(...) to build a relative path to the .env file. 
 
-// Edit this line, then load the .env file:
-// pathToDotEnv = path.join(...);
+// Your code here.
+
+pathToDotEnv = path.join(__dirname, '..', '.env');
 console.log(pathToDotEnv);
 
-// Your code here.
+require("dotenv").config({ path: pathToDotEnv });
 
 // c. Bonus. Load the 'fs' native module and use the method `existsSync` to 
 // check if the path to the .dotenv file is correct.
 
 // Your code here.
+const fs = require('fs');
 
-
+console.log(pathToDotEnv);
+if (fs.existsSync(pathToDotEnv)) {
+    console.log('You have found the .env file');
+}
 
 
 // Exercise 2. Create and fill in .env file.
@@ -90,6 +95,15 @@ exercise = '3a';
 
 // a. Check that the variable METAMASK_ACCOUNT_1 is not empty. Write an 
 // if statement that prints a warning message if empty.
+console.log(process.env.METAMASK_ACCOUNT_1);
+
+let privateKey = process.env.METAMASK_PRIVATE_KEY;
+if (privateKey === "") {
+    console.log('Missing private key, fix your .env file');
+}
+
+exit();
+
 // Hint: https://javascript.info/ifelse
 
 // Your code here!
@@ -104,6 +118,16 @@ exercise = '3b';
 
 // Your code here!
 
+let variablesToCheck = [
+    "INFURA_KEY", "INFURA_SEPOLIA", "INFURA_GOERLI", "INFURA_MAINNET",
+    "ALCHEMY_KEY", "ALCHEMY_SEPOLIA", "ALCHEMY_GOERLI", "ALCHEMY_MAINNET",
+    "METAMASK_1_ADDRESS", "METAMASK_1_PRIVATE_KEY",
+    "METAMASK_2_ADDRESS", "METAMASK_2_PRIVATE_KEY",
+    "ETHERSCAN_KEY"
+];
+
+console.log('Num of variables in .env to check: ', variablesToCheck.length);
+
 // exit();
 
 // c. Loop through all the elements of the array and check that the variable
@@ -116,13 +140,20 @@ exercise = '3b';
 
 // Solution 1. forEach.
 variablesToCheck.forEach(v => {
-    // Your code here!
+    if (!process.env[v]) {
+        console.log(process.env[v])
+        console.log(`Missing ${v}, fix your .env file`);
+    }
 });
 
 // Solution 2. For-loop.
-
-// Your code here!
-
+for (let index = 0; index < variablesToCheck.length; index++) {
+    const v = variablesToCheck[index];
+    if (!process.env[v]) {
+        console.log(process.env[v])
+        console.log(`Missing ${v}, fix your .env file`);
+    }
+}
 
 // exit();
 
