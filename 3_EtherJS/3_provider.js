@@ -18,9 +18,13 @@ const path = require('path');
 
 // Your code here!
 
+pathToDotEnv = path.join(__dirname, '..', '.env');
+require("dotenv").config({ path: pathToDotEnv });
+
+const ethers = require("ethers");
 
 // Exercise 1. Connect to Mainnet (a.k.a welcome async!).
-/////////////////////////////////////////////////////////
+/////////ª////////////////////////////////////////////////
 
 // Whenever you interact with a blockchain you are in the "async" domain. 
 
@@ -48,7 +52,10 @@ const path = require('path');
 
 
 // Your code here!
+const provKey = process.env.ALCHEMY_KEY;
 
+const mainnetUrl = `${process.env.ALCHEMY_MAINNET_API_URL}${provKey}`;
+const mainnetProv = new ethers.JsonRpcProvider(mainnetUrl);
 
 // b. Verify that the network's name is "mainnet" and the chain id is 1.
 
@@ -64,22 +71,23 @@ const path = require('path');
 
 // This is an asynchronous anonymous self-executing function. It is a ugly
 // construct, but it allows you to use await inside its body.
-(async () => {
+// (async () => {
     
-    // Your code maybe here!
+//     // Your code maybe here!
 
-})();
+// })();
 
 // However, the async function could also be named, and the result is:
 const network = async () => {
-    
-    // Your code here!
-
+    let net = await mainnetProv.getNetwork();
+    console.log('Async/Await!');
+    console.log('Provider\'s network name: ', net.name);
+    console.log('Provider\'s network chain id: ', Number(net.chainId));
 };
 
 // which you can then call:
 
-// network();
+network();
 
 // The second (less compact) notation has the advantage that we can invoke
 // the code only when needed, so it is preferred in this exercise sheet.
@@ -102,12 +110,11 @@ const network = async () => {
 
 // // Look up the current block number
 const blockNum = async () => {
-    
-    // Your code here!
-
+    let blockNumber = await mainnetProv.getBlockNumber();
+    console.log('Block number on mainnet: ', blockNumber);
 };
 
-// blockNum();
+blockNum();
 
 // b. The Ethereum mainnet is one of the most secure blockchains in the world.
 // The testnets of Ethereum are a bit less secure because they might have 
@@ -117,13 +124,23 @@ const blockNum = async () => {
 // Connect to the Sepolia test net, get the latest block number and print
 // the difference in chain length with mainnet.
 
+const sepoliaUrl = `${process.env.ALCHEMY_SEPOLIA_API_URL}${provKey}`;
+// console.log(sepoliaUrl);
+const sepoliaProv = new ethers.JsonRpcProvider(sepoliaUrl);
 
 // Look up the current block number in Mainnet and Sepolia.
 const blockDiff = async () => {
+    let blockNumberM = await mainnetProv.getBlockNumber();
+    console.log('Block number on mainnet: ', blockNumberM);
 
+    let blockNumberS = await sepoliaProv.getBlockNumber();
+    console.log('Block number on Sepolia: ', blockNumberS);
+
+    console.log('Mainnet is ' + (blockNumberM - blockNumberS) +
+                ' blocks ahead');
 };
 
-// blockDiff();
+blockDiff();
 
 
 // Exercise 3. Block time.

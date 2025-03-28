@@ -102,7 +102,7 @@ if (privateKey === "") {
     console.log('Missing private key, fix your .env file');
 }
 
-exit();
+// exit();
 
 // Hint: https://javascript.info/ifelse
 
@@ -156,5 +156,3 @@ for (let index = 0; index < variablesToCheck.length; index++) {
 }
 
 // exit();
-
-

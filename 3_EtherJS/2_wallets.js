@@ -20,6 +20,13 @@ const ethers = require("ethers");
 // and the mnenomic phrase.
 // Hint: ethers.Wallet.createRandom();
 
+const wallet = ethers.Wallet.createRandom();
+
+// Wallet details
+console.log("Address:", wallet.address);
+console.log("Priate Key:", wallet.privateKey);
+console.log("Mnemonic Phrase:", wallet.mnemonic.phrase);
+console.log(); // empty line for better readability
 
 // exit();
 
@@ -42,6 +49,15 @@ console.log("Derivation path:", wallet.path);
 
 // Your code here!
 
+// check if wallet starts with baseDevPath
+if (wallet.path.startsWith(baseDevPath)) {
+    console.log("Wallet derivation path starts with the expected base path.")
+} else {
+    console.log("Derivation path does not match the exptexted base path.")
+    console.log("Expected to start with:", baseDevPath);
+    console.log("Actual path:", wallet.path);
+}
+console.log(); // empty line
 
 // exit();
 
@@ -57,4 +73,30 @@ exercise = 2;
 
 // Your code here!
 
-// exit();
+const mnemonic = wallet.mnemonic.phrase;
+console.log("Using mnemonic:", mnemonic);
+console.log();
+
+// Create a fresh HD Node from the mnemonic
+// This is important - we're creating a new node from scratch, not using the existing wallet
+const hdNode = ethers.HDNodeWallet.fromPhrase(mnemonic);
+
+// Generate and print the first 10 addresses and private keys
+for (let i = 1; i < 11; i++) {
+  // Derive the complete path for each wallet directly
+  const path = `m/44'/60'/0'/0/${i}`;
+  
+  // Create a wallet for that specific path
+  const childWallet = ethers.HDNodeWallet.fromMnemonic(
+    hdNode.mnemonic,
+    path
+  );
+  
+  console.log(`Wallet #${i}:`);
+  console.log(`  Path: ${path}`);
+  console.log(`  Address: ${childWallet.address}`);
+  console.log(`  Private Key: ${childWallet.privateKey}`);
+  console.log();
+}
+
+// exit()
