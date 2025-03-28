@@ -52,10 +52,10 @@ const ethers = require("ethers");
 
 
 // Your code here!
-const provKey = process.env.ALCHEMY_KEY;
+const providerKey = process.env.ALCHEMY_KEY;
 
-const mainnetUrl = `${process.env.ALCHEMY_MAINNET_API_URL}${provKey}`;
-const mainnetProv = new ethers.JsonRpcProvider(mainnetUrl);
+const mainnetUrl = `${process.env.ALCHEMY_MAINNET_API_URL}${providerKey}`;
+const mainnetProvider = new ethers.JsonRpcProvider(mainnetUrl);
 
 // b. Verify that the network's name is "mainnet" and the chain id is 1.
 
@@ -79,7 +79,7 @@ const mainnetProv = new ethers.JsonRpcProvider(mainnetUrl);
 
 // However, the async function could also be named, and the result is:
 const network = async () => {
-    let net = await mainnetProv.getNetwork();
+    let net = await mainnetProvider.getNetwork();
     console.log('Async/Await!');
     console.log('Provider\'s network name: ', net.name);
     console.log('Provider\'s network chain id: ', Number(net.chainId));
@@ -110,7 +110,7 @@ network();
 
 // // Look up the current block number
 const blockNum = async () => {
-    let blockNumber = await mainnetProv.getBlockNumber();
+    let blockNumber = await mainnetProvider.getBlockNumber();
     console.log('Block number on mainnet: ', blockNumber);
 };
 
@@ -124,16 +124,16 @@ blockNum();
 // Connect to the Sepolia test net, get the latest block number and print
 // the difference in chain length with mainnet.
 
-const sepoliaUrl = `${process.env.ALCHEMY_SEPOLIA_API_URL}${provKey}`;
+const sepoliaUrl = `${process.env.ALCHEMY_SEPOLIA_API_URL}${providerKey}`;
 // console.log(sepoliaUrl);
-const sepoliaProv = new ethers.JsonRpcProvider(sepoliaUrl);
+const sepoliaProvider = new ethers.JsonRpcProvider(sepoliaUrl);
 
 // Look up the current block number in Mainnet and Sepolia.
 const blockDiff = async () => {
-    let blockNumberM = await mainnetProv.getBlockNumber();
+    let blockNumberM = await mainnetProvider.getBlockNumber();
     console.log('Block number on mainnet: ', blockNumberM);
 
-    let blockNumberS = await sepoliaProv.getBlockNumber();
+    let blockNumberS = await sepoliaProvider.getBlockNumber();
     console.log('Block number on Sepolia: ', blockNumberS);
 
     console.log('Mainnet is ' + (blockNumberM - blockNumberS) +
@@ -304,6 +304,7 @@ const linkAddress = '0x326c977e6efc84e512bb9c30f76e30c160ed06fb';
 // the LINK ABI is stored in this directory, under "link_abi.json";
 
 const linkABI = require('./link_abi.json');
+const { exit } = require('process');
 
 // Now your task. Get the balance for LINK for "unima.eth" and "vitalik.eth".
 // Hint: you need first to create a Contract object via `ethers.Contract`, 
